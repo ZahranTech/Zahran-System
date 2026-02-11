@@ -1,0 +1,192 @@
+🟢 الخطة المجانية الكاملة (Step by Step)
+🧱 المعمارية اللي هنشتغل بيها
+React (Vercel)
+   |
+Django REST API (Render – Free)
+   |
+PostgreSQL (Supabase – Free)
+   |
+Files (Supabase Storage)
+
+① تجهيز المشروع محليًا (مرة واحدة)
+Backend (Django)
+
+تأكد إن عندك:
+
+Django
+
+djangorestframework
+
+gunicorn
+
+psycopg2-binary
+
+python-dotenv
+
+📌 ملف requirements.txt:
+
+Django
+djangorestframework
+gunicorn
+psycopg2-binary
+python-dotenv
+whitenoise
+
+
+📌 في settings.py:
+
+DEBUG = False
+
+ALLOWED_HOSTS = ["*"]  # مؤقتًا
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    ...
+]
+
+② رفع الكود على GitHub
+
+أنشئ Repository جديد
+
+ارفع:
+
+backend
+
+frontend (React)
+
+لا ترفع:
+
+.env
+
+db.sqlite3
+
+③ إنشاء قاعدة بيانات مجانية (Supabase)
+الخطوات:
+
+ادخل Supabase
+
+New Project
+
+اختار:
+
+PostgreSQL
+
+Free plan
+
+انسخ:
+
+DATABASE_URL
+
+📌 مثال:
+
+DATABASE_URL=postgresql://user:pass@host:5432/dbname
+
+④ ربط Django بقاعدة Supabase
+
+في settings.py:
+
+import dj_database_url
+
+DATABASES = {
+    "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
+}
+
+⑤ نشر الـ Backend على Render (مجاني)
+الخطوات:
+
+Create New Web Service
+
+اربط GitHub
+
+اختار مشروع Django
+
+الإعدادات:
+
+Build Command
+
+pip install -r requirements.txt
+python manage.py collectstatic --noinput
+python manage.py migrate
+
+
+Start Command
+
+gunicorn project.wsgi:application
+
+Environment Variables:
+SECRET_KEY=*****
+DEBUG=False
+DATABASE_URL=*****
+
+
+⏳ انتظر النشر (3–5 دقائق)
+
+📌 هتاخد لينك API زي:
+
+https://your-app.onrender.com
+
+⑥ نشر الواجهة الأمامية (React) على Vercel
+الخطوات:
+
+Import Project
+
+اختار Repository
+
+Framework: React
+
+Environment Variable:
+
+VITE_API_URL=https://your-app.onrender.com
+
+
+Deploy 🎉
+
+📌 هتاخد لينك:
+
+https://your-app.vercel.app
+
+⑦ رفع الملفات (PDF – صور – مرفقات)
+Supabase Storage
+
+Create Bucket
+
+Public أو Private
+
+في Django:
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+
+✔ الملفات آمنة
+✔ لا تضيع
+✔ تفضل معاك عند الترقية
+
+⑧ النسخ الاحتياطي (مهم جدًا)
+Backup قاعدة البيانات
+pg_dump DATABASE_URL > backup.sql
+
+استرجاع
+psql DATABASE_URL < backup.sql
+
+
+📌 اعمل ده:
+
+أسبوعيًا
+
+قبل أي ترقية
+
+⚠️ قيود الخطة المجانية (خليك عارف)
+
+Backend بينام بعد عدم الاستخدام
+
+أول طلب بطيء
+
+لا يصلح للإنتاج الرسمي
+
+لكن:
+✔ ممتاز للتجربة
+✔ ممتاز للعرض
+✔ ممتاز لإقناع الإدارة

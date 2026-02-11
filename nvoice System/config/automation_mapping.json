@@ -1,0 +1,11 @@
+{
+    "url": "https://gfn-spgs.efinance.com.eg/client/InvoiceInquiry/TempFreezeInvoice",
+    "selectors": {
+        "tax_registration_number": "#RIN",
+        "invoice_id": "#invoiceId",
+        "btn_inquire": "#btnInquire",
+        "btn_add": "#btnAdd"
+    },
+    "automation_type": "remote_debugging",
+    "browser_port": 9222
+}

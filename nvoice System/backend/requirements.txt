@@ -1,0 +1,15 @@
+Django>=5.0
+djangorestframework
+django-cors-headers
+djangorestframework-simplejwt
+psycopg2-binary
+dj-database-url
+python-dotenv
+whitenoise
+gunicorn
+pyotp
+qrcode
+pillow
+pandas
+openpyxl
+requests
