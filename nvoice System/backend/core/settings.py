@@ -28,10 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-(ss_ei6+ksb+-rr6i%ra5_c86_8t!px@ct7_2(j5#7&=v&vxuv')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# For debugging Render 500 error temporarily
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 
 # Application definition
