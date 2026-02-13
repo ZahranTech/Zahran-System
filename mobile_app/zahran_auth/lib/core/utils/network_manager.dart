@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class NetworkManager {
   static const String _kServerIpKey = 'server_ip';
-  static const String defaultIp = '192.168.1.10';
+  static const String defaultIp = 'https://zahran-backend.onrender.com';
   static const _storage = FlutterSecureStorage();
   static String? _cachedIp;
 
@@ -32,6 +32,10 @@ class NetworkManager {
   static String getBaseUrl(String ip) {
     if (ip.startsWith('http')) {
       return ip.endsWith('/') ? '${ip}api' : '$ip/api';
+    }
+    // If IP is just a domain (e.g. zahran-backend.onrender.com)
+    if (!ip.contains(':')) {
+       return 'https://$ip/api';
     }
     return 'http://$ip:8000/api';
   }

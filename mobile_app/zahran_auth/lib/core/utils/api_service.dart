@@ -6,7 +6,7 @@ class ApiService {
   Dio _dio;
   
   ApiService() : _dio = Dio(BaseOptions(
-          baseUrl: 'http://192.168.1.10:8000/api', // Initial fallback
+          baseUrl: 'https://zahran-backend.onrender.com/api', // Production fallback
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
           headers: {'Content-Type': 'application/json'},
@@ -37,10 +37,18 @@ class ApiService {
       );
       return response.data;
     } on DioException catch (e) {
+      debugPrint('❌ Login API Error:');
+      debugPrint('   Status: ${e.response?.statusCode}');
+      debugPrint('   Data: ${e.response?.data}');
+      debugPrint('   Message: ${e.message}');
+
       if (e.response != null) {
-        throw Exception(e.response?.data['detail'] ?? 'Login failed');
+        String msg = e.response?.data['detail'] ?? 
+                     e.response?.data['error'] ?? 
+                     'Login failed (${e.response?.statusCode})';
+        throw Exception(msg);
       } else {
-        throw Exception('Network error: ${e.message}');
+        throw Exception('Network error: ${e.message} \nCheck your internet connection.');
       }
     }
   }
