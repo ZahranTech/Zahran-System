@@ -53,7 +53,10 @@ import {
   Cell
 } from 'recharts';
 
-const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8000`;
+// Clean trailing slash if exists to prevent double slashes
+const rawApiUrl = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8000`;
+const API_URL = rawApiUrl.replace(/\/$/, '');
+
 console.log('🔌 Backend URL Configured:', API_URL);
 console.log('🌍 Environment:', import.meta.env.MODE);
 
@@ -61,6 +64,7 @@ const API_BASE = `${API_URL}/api`;
 const AUTH_URL = `${API_BASE}/auth/login/`;
 
 // Global axios configuration
+axios.defaults.withCredentials = false; // Important: set to false for JWT if not using cookies, true if using SessionAuth
 axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -71,6 +75,18 @@ axios.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("❌ API Error:", error.response?.status, error.response?.data);
+    if (error.response?.status === 405) {
+      console.error("🚫 Method Not Allowed: Check trailing slash or CORS preflight.");
+    }
+    return Promise.reject(error);
+  }
+);
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
