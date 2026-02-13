@@ -143,8 +143,16 @@ STORAGES = {
     },
 }
 
-# CORS Settings
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS Settings - Production Ready
+# Allow specific origins for better security
+CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL', 'False') == 'True'
+CORS_ALLOWED_ORIGINS = [
+    'https://zahran-system-ci9dzwtx4-zahrans-projects-7fe13656.vercel.app',  # Vercel deployment
+    'http://localhost:5173',  # Local development (Vite)
+    'http://localhost:8000',  # Local development (Django)
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:8000',
+]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -158,6 +166,24 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "x-is-mobile",
 ]
+
+# CSRF Settings for cross-origin requests
+CSRF_TRUSTED_ORIGINS = [
+    'https://zahran-system-ci9dzwtx4-zahrans-projects-7fe13656.vercel.app',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
+# Allow CORS methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
 
 # REST Framework Settings
 REST_FRAMEWORK = {
