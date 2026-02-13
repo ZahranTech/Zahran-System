@@ -154,10 +154,10 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # CORS Settings - Production Ready
-CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL', 'False') == 'True'
+CORS_ALLOW_ALL_ORIGINS = True # Force True to fix frontend connection
 CORS_ALLOWED_ORIGINS = [
     'https://zahran-system-ci9dzwtx4-zahrans-projects-7fe13656.vercel.app',
-    'https://*.vercel.app',
+    'https://zahran-backend.onrender.com',
     'http://localhost:5173',
     'http://localhost:8000',
     'http://127.0.0.1:5173',
