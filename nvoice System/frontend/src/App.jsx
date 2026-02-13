@@ -54,6 +54,9 @@ import {
 } from 'recharts';
 
 const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8000`;
+console.log('🔌 Backend URL Configured:', API_URL);
+console.log('🌍 Environment:', import.meta.env.MODE);
+
 const API_BASE = `${API_URL}/api`;
 const AUTH_URL = `${API_BASE}/auth/login/`;
 
