@@ -701,7 +701,7 @@ const DashboardView = ({ invoices, onRefresh, userRole, addToast, stats }) => {
           <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>امسح الكود لتوصيل هاتفك وإرسال الروابط فوراً</p>
           <div style={{ background: 'white', padding: '10px', borderRadius: '15px', marginBottom: '1rem' }}>
             <img
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('http://192.168.1.10:8000/api/mobile-sync/push_page/')}`}
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`${API_BASE}/mobile-sync/push_page/`)}`}
               alt="Mobile Sync QR"
               style={{ width: '120px', height: '120px' }}
             />
@@ -727,7 +727,7 @@ const DashboardView = ({ invoices, onRefresh, userRole, addToast, stats }) => {
               تحديث يدوي الآن
             </button>
           </div>
-          <p style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '8px' }}>IP: 192.168.1.10</p>
+          <p style={{ fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '8px' }}>Server: {API_URL.replace(/^https?:\/\//, '')}</p>
         </div>
 
         <div className="premium-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
